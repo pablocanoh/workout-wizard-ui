@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {TrainingProvider} from "./components/routine-creation/TrainingContext";
+import RoutineDaysConfigurator from "./components/routine-creation/RoutineDaysConfigurator";
+import TrainingForm from "./components/routine-creation/TrainingForm";
+import RoutineConfiguration from "./components/routine-creation/RoutineConfiguration";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <Router>
+            <TrainingProvider>
+                <Routes>
+                    <Route path="/configure-routine" element={<RoutineConfiguration />} />
+                </Routes>
+            </TrainingProvider>
+        </Router>
+    );
 }
 
 export default App;

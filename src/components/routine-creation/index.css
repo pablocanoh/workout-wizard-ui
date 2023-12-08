@@ -1,0 +1,29 @@
+/* Agrega estos estilos en tu archivo CSS */
+
+.container {
+    padding: 20px;
+    background-color: #f8f9fa; /* Color de fondo claro para el contenedor */
+}
+
+.day-container {
+    margin-bottom: 30px; /* Espacio entre cada día de ejercicios */
+}
+
+.exercise-container {
+    padding: 15px;
+    background-color: #ffffff; /* Fondo para cada ejercicio */
+    border-radius: 5px; /* Bordes redondeados para suavizar los contenedores */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para añadir profundidad */
+    margin-bottom: 15px; /* Espacio entre ejercicios */
+}
+
+.exercise-title {
+    margin-bottom: 10px; /* Espacio entre el título del ejercicio y los campos */
+}
+
+/* Estilos para TextField de Material-UI pueden ser ajustados con la clase */
+.MuiTextField-root {
+    margin-right: 10px; /* Asegura que haya espacio entre los campos */
+}
+
+/* Si estás usando Material-UI puedes ajustar los estilos directamente a través de su sistema de temas */
