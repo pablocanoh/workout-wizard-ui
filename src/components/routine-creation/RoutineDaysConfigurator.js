@@ -7,7 +7,7 @@ import './index.css';
 
 const RoutineDaysConfigurator = () => {
     const navigate = useNavigate();
-    const { trainingData, updateTrainingData } = useContext(TrainingContext);
+    const { trainingData, updateTrainingData, exercisesSample } = useContext(TrainingContext);
     const [routine, setRoutine] = useState(trainingData.routineData.blocks);
 
     const handleExerciseChange = (blockIndex, exerciseIndex, field, value) => {
@@ -36,7 +36,7 @@ const RoutineDaysConfigurator = () => {
     const addExercise = (blockIndex) => {
         const newExercise = {
             type: 'CHEST', // o el primer tipo en tu lista de mockAvailableExercises
-            name: 'test', // Example name, you might want to set this dynamically
+            name: exercisesSample['CHEST'][0].name, // Example name, you might want to set this dynamically
             series: 3, // un valor predeterminado para las series
             reps: 10, // un valor predeterminado para las repeticiones
         };

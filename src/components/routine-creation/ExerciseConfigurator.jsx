@@ -1,20 +1,11 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
 import {fetchExercises} from "./routineService";
+import {TrainingContext} from "./TrainingContext";
 
 const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
-    const [availableExercises, setAvailableExercises] = useState({});
-
-    useEffect(() => {
-        const loadExercises = async () => {
-            const exercises = await fetchExercises();
-            setAvailableExercises(exercises);
-        };
-
-        loadExercises();
-    }, []);
-
-    const exerciseTypes = Object.keys(availableExercises);
+    const { exercisesSample } = useContext(TrainingContext);
+    const exerciseTypes = Object.keys(exercisesSample);
 
     return (
         <Grid container spacing={2} alignItems="center">
@@ -42,7 +33,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
                     fullWidth
                     disabled={!exercise.type}  // Deshabilita si no se ha seleccionado un tipo
                 >
-                    {exercise.type && availableExercises[exercise.type]?.map((ex, index) => (
+                    {exercise.type && exercisesSample[exercise.type]?.map((ex, index) => (
                         <MenuItem key={index} value={ex.name}>
                             {ex.name}
                         </MenuItem>

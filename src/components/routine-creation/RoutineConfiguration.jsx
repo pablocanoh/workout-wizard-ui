@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TrainingForm from "./TrainingForm";
 import RoutineDaysConfigurator from "./RoutineDaysConfigurator";
 import {Button} from "@mui/material";
+import {fetchExercises} from "./routineService";
+import {TrainingContext} from "./TrainingContext";
 
 const RoutineConfiguration = () => {
+    const { updateExercisesSample } = useContext(TrainingContext);
     const [step, setStep] = useState(1);
+
+    useEffect(() => {
+        const loadExercises = async () => {
+            const exercises = await fetchExercises();
+            updateExercisesSample(exercises);
+        };
+
+        loadExercises();
+    }, []);
 
     const onChange = () => {
         setStep(2);
