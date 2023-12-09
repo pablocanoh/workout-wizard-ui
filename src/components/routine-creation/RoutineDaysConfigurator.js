@@ -3,72 +3,86 @@ import { TrainingContext } from './TrainingContext';
 import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Button } from '@mui/material';
 import ExerciseConfigurator from './ExerciseConfigurator';
-import './index.css'
-import {mockAvailableExercises} from "../../mock-data/mock-data";
+import './index.css';
 
 const RoutineDaysConfigurator = () => {
     const navigate = useNavigate();
     const { trainingData, updateTrainingData } = useContext(TrainingContext);
-    const [routine, setRoutine] = useState(trainingData.routineData);
+    const [routine, setRoutine] = useState(trainingData.routineData.blocks);
 
-    const handleExerciseChange = (day, index, field, value) => {
-        const updatedExercises = routine[day].map((exercise, idx) => {
-            if (idx === index) {
-                return { ...exercise, [field]: value };
+    const handleExerciseChange = (blockIndex, exerciseIndex, field, value) => {
+        const updatedRoutine = routine.map((block, idx) => {
+            if (idx === blockIndex) {
+                const updatedExercises = block.exercises.map((exercise, exIdx) => {
+                    if (exIdx === exerciseIndex) {
+                        return { ...exercise, [field]: value };
+                    }
+                    return exercise;
+                });
+                return { ...block, exercises: updatedExercises };
             }
-            return exercise;
+            return block;
         });
 
-        setRoutine({ ...routine, [day]: updatedExercises });
+        setRoutine(updatedRoutine);
     };
 
     const handleSave = () => {
-        updateTrainingData({ ...trainingData, routineData: routine });
+        updateTrainingData({ ...trainingData, routineData: { blocks: routine } });
         console.log('Rutina guardada:', routine);
         navigate('/');
     };
 
-    const addExercise = (day) => {
+    const addExercise = (blockIndex) => {
         const newExercise = {
             type: 'CHEST', // o el primer tipo en tu lista de mockAvailableExercises
-            name: mockAvailableExercises['CHEST'][0], // el primer ejercicio de la lista
+            name: 'test', // Example name, you might want to set this dynamically
             series: 3, // un valor predeterminado para las series
             reps: 10, // un valor predeterminado para las repeticiones
         };
 
-        setRoutine((prevRoutine) => ({
-            ...prevRoutine,
-            [day]: [...prevRoutine[day], newExercise],
+        setRoutine(prevRoutine => prevRoutine.map((block, idx) => {
+            if (idx === blockIndex) {
+                return {
+                    ...block,
+                    exercises: [...block.exercises, newExercise]
+                };
+            }
+            return block;
         }));
     };
 
-    const removeExercise = (day, index) => {
-        setRoutine((prevRoutine) => ({
-            ...prevRoutine,
-            [day]: prevRoutine[day].filter((_, idx) => idx !== index),
+    const removeExercise = (blockIndex, exerciseIndex) => {
+        setRoutine(prevRoutine => prevRoutine.map((block, idx) => {
+            if (idx === blockIndex) {
+                return {
+                    ...block,
+                    exercises: block.exercises.filter((_, exIdx) => exIdx !== exerciseIndex)
+                };
+            }
+            return block;
         }));
     };
-
 
 
     return (
         <Container>
             <Typography variant="h4">Configura tu Rutina de Entrenamiento</Typography>
-            {Object.entries(routine).map(([day, exercises]) => (
-                <div key={day} className="day-container">
-                    <Typography variant="h6" gutterBottom>{`Día ${day}`}</Typography>
+            {routine.map((block, blockIndex) => (
+                <div key={blockIndex} className="block-container">
+                    <Typography variant="h6" gutterBottom>{`Bloque ${blockIndex + 1}`}</Typography>
                     <div>
-                        {exercises.map((exercise, index) => (
-                            <div key={index} className="exercise-container">
+                        {block.exercises.map((exercise, exerciseIndex) => (
+                            <div key={exerciseIndex} className="exercise-container">
                                 <ExerciseConfigurator
                                     exercise={exercise}
-                                    onExerciseChange={(field, value) => handleExerciseChange(day, index, field, value)}
-                                    onRemove={() => removeExercise(day, index)}
+                                    onExerciseChange={(field, value) => handleExerciseChange(blockIndex, exerciseIndex, field, value)}
+                                    onRemove={() => removeExercise(blockIndex, exerciseIndex)}
                                 />
                             </div>
                         ))}
                     </div>
-                    <Button onClick={() => addExercise(day)} color="primary">
+                    <Button onClick={() => addExercise(blockIndex)} color="primary">
                         Añadir Ejercicio
                     </Button>
                 </div>

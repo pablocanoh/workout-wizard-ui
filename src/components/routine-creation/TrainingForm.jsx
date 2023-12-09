@@ -1,17 +1,19 @@
 import React, { useState, useContext } from 'react';
 import { Container, TextField, MenuItem, Button, Typography } from '@mui/material';
 import { TrainingContext } from "./TrainingContext";
-import { generateMockRoutine } from "../../mock-data/mock-request";
+import {fetchRoutine} from "./routineService";
+import { ExperienceLevel } from "./api-type";
 
 const TrainingForm = ({ onSubmit }) => {
     const [trainingDays, setTrainingDays] = useState('');
     const [experienceLevel, setExperienceLevel] = useState('');
     const { updateTrainingData } = useContext(TrainingContext);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const routineData = generateMockRoutine();
-        updateTrainingData({ trainingDays, experienceLevel, routineData });
+        console.log('aaa')
+        const routineData = await fetchRoutine(experienceLevel, trainingDays);
+        updateTrainingData({trainingDays, experienceLevel, routineData});
         onSubmit();
     };
 
@@ -45,9 +47,9 @@ const TrainingForm = ({ onSubmit }) => {
                     margin="normal"
                 >
                     {/* Opciones de nivel de experiencia */}
-                    {['Principiante', 'Intermedio', 'Avanzado'].map((level) => (
-                        <MenuItem key={level} value={level}>
-                            {level}
+                    {Object.entries(ExperienceLevel).map(([key, value]) => (
+                        <MenuItem key={key} value={key}>
+                            {value}
                         </MenuItem>
                     ))}
                 </TextField>

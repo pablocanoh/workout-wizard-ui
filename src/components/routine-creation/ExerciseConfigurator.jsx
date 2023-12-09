@@ -1,10 +1,20 @@
-import React from 'react';
-import {Button, Grid, MenuItem, TextField} from '@mui/material';
-import { mockAvailableExercises } from "../../mock-data/mock-data";
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import { Button, Grid, MenuItem, TextField } from '@mui/material';
+import {fetchExercises} from "./routineService";
 
 const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
-    // Función para obtener los tipos de ejercicio
-    const exerciseTypes = Object.keys(mockAvailableExercises);
+    const [availableExercises, setAvailableExercises] = useState({});
+
+    useEffect(() => {
+        const loadExercises = async () => {
+            const exercises = await fetchExercises();
+            setAvailableExercises(exercises);
+        };
+
+        loadExercises();
+    }, []);
+
+    const exerciseTypes = Object.keys(availableExercises);
 
     return (
         <Grid container spacing={2} alignItems="center">
@@ -32,9 +42,9 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
                     fullWidth
                     disabled={!exercise.type}  // Deshabilita si no se ha seleccionado un tipo
                 >
-                    {exercise.type && mockAvailableExercises[exercise.type].map((name, index) => (
-                        <MenuItem key={index} value={name}>
-                            {name}
+                    {exercise.type && availableExercises[exercise.type]?.map((ex, index) => (
+                        <MenuItem key={index} value={ex.name}>
+                            {ex.name}
                         </MenuItem>
                     ))}
                 </TextField>
