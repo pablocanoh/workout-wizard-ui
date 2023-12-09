@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
-import {fetchExercises} from "./routineService";
+import {fetchExercises} from "../routineService";
 import {TrainingContext} from "./TrainingContext";
 
 const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {

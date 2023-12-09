@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Container, TextField, MenuItem, Button, Typography } from '@mui/material';
 import { TrainingContext } from "./TrainingContext";
-import {fetchRoutine} from "./routineService";
-import { ExperienceLevel } from "./api-type";
+import {fetchRoutine} from "../routineService";
+import { ExperienceLevel } from "../api-type";
 
 const TrainingForm = ({ onSubmit }) => {
     const [trainingDays, setTrainingDays] = useState('');
