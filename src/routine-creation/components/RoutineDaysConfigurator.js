@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Button } from '@mui/material';
 import ExerciseConfigurator from './ExerciseConfigurator';
 import './index.css';
+import {saveRoutine} from "../routineService";
 
 const RoutineDaysConfigurator = () => {
     const navigate = useNavigate();
@@ -29,8 +30,14 @@ const RoutineDaysConfigurator = () => {
 
     const handleSave = () => {
         updateTrainingData({ ...trainingData, routineData: { blocks: routine } });
-        console.log('Rutina guardada:', routine);
-        navigate('/');
+        saveRoutine({ blocks: routine })
+            .then(responseData => {
+                console.log('Routine saved successfully:', responseData);
+                navigate('/');
+            })
+            .catch(error => {
+                console.error('Error saving routine:', error);
+            });
     };
 
     const addExercise = (blockIndex) => {
