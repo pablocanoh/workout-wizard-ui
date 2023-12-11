@@ -30,7 +30,7 @@ const RoutineDaysConfigurator = () => {
 
     const handleSave = () => {
         updateTrainingData({ ...trainingData, routineData: { blocks: routine } });
-        saveRoutine({ blocks: routine })
+        saveRoutine(trainingData.routineData)
             .then(responseData => {
                 console.log('Routine saved successfully:', responseData);
                 navigate('/');
