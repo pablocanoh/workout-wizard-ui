@@ -5,18 +5,14 @@ import SaveIcon from '@mui/icons-material/Save';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {routineMock} from "../../mock-data/mock-data";
 
-const ExerciseComponent = ({ exercise }) => {
-    const { weights, updateWeight } = useContext(WorkoutContext);
+const ExerciseComponent = ({ exercise, onWeightChange }) => {
     const [localWeights, setLocalWeights] = useState(new Array(exercise.sets).fill(''));
 
     const handleWeightChange = (index, weight) => {
         const updatedWeights = [...localWeights];
         updatedWeights[index] = weight;
         setLocalWeights(updatedWeights);
-    };
-
-    const handleSave = () => {
-        updateWeight(exercise.id, localWeights);
+        onWeightChange(exercise.id, updatedWeights);
     };
 
     return (
@@ -47,30 +43,47 @@ const ExerciseComponent = ({ exercise }) => {
                         </Grid>
                     ))}
                 </Grid>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<SaveIcon />}
-                    onClick={handleSave}
-                    sx={{ mt: 2 }}
-                >
-                    Save Weights
-                </Button>
             </CardContent>
         </Card>
     );
 };
 
 const RoutineComponent = () => {
+    const { updateWeight } = useContext(WorkoutContext);
+    const [weights, setWeights] = useState({});
+
+    const handleWeightChange = (exerciseId, weight) => {
+        setWeights({ ...weights, [exerciseId]: weight });
+    };
+
+    const handleSave = () => {
+        Object.entries(weights).forEach(([exerciseId, weight]) => {
+            updateWeight(exerciseId, weight);
+        });
+        console.log('Weights saved', weights);
+    };
+
     return (
         <Grid container spacing={2} sx={{ p: 3 }}>
             {routineMock.blocks.map(block => (
                 <Grid item xs={12} key={block.id}>
                     {block.exercises.map(exercise => (
-                        <ExerciseComponent key={exercise.id} exercise={exercise} />
+                        <ExerciseComponent
+                            key={exercise.id}
+                            exercise={exercise}
+                            onWeightChange={handleWeightChange}
+                        />
                     ))}
                 </Grid>
             ))}
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSave}
+                sx={{ mt: 2 }}
+            >
+                Save Routine
+            </Button>
         </Grid>
     );
 };
