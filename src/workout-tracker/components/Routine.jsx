@@ -6,11 +6,13 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {routineMock} from "../../mock-data/mock-data";
 
 const ExerciseComponent = ({ exercise, onWeightChange }) => {
-    const [localWeights, setLocalWeights] = useState(new Array(exercise.sets).fill(''));
+    const initialWeights = Object.fromEntries(
+        Array.from({ length: exercise.sets }, (_, i) => [i + 1, 0])
+    );
+    const [localWeights, setLocalWeights] = useState(initialWeights);
 
-    const handleWeightChange = (index, weight) => {
-        const updatedWeights = [...localWeights];
-        updatedWeights[index] = weight;
+    const handleWeightChange = (setNumber, weight) => {
+        const updatedWeights = { ...localWeights, [setNumber]: weight };
         setLocalWeights(updatedWeights);
         onWeightChange(exercise.id, updatedWeights);
     };
@@ -27,15 +29,15 @@ const ExerciseComponent = ({ exercise, onWeightChange }) => {
                 </Typography>
                 <Divider sx={{ my: 1.5 }} />
                 <Grid container spacing={2}>
-                    {localWeights.map((weight, index) => (
-                        <Grid item xs={6} sm={4} md={3} key={index}>
+                    {Object.entries(localWeights).map(([setNumber, weight]) => (
+                        <Grid item xs={6} sm={4} md={3} key={setNumber}>
                             <TextField
-                                label={`Set ${index + 1}`}
+                                label={`Set ${setNumber + 1}`}
                                 type="number"
                                 variant="outlined"
                                 fullWidth
                                 value={weight}
-                                onChange={(e) => handleWeightChange(index, e.target.value)}
+                                onChange={(e) => handleWeightChange(setNumber, e.target.value)}
                                 InputProps={{
                                     endAdornment: <Typography variant="body2">kg</Typography>,
                                 }}
@@ -57,10 +59,8 @@ const RoutineComponent = () => {
     };
 
     const handleSave = () => {
-        Object.entries(weights).forEach(([exerciseId, weight]) => {
-            updateWeight(exerciseId, weight);
-        });
-        console.log('Weights saved', weights);
+        updateWeight(weights);
+        console.log(weights);
     };
 
     return (
