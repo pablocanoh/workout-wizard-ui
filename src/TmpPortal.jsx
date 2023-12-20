@@ -8,6 +8,9 @@ const TmpPortal = () => {
         <Button onClick={() => navigate("/configure-routine")}>
             Routine configuration
         </Button>
+        <Button onClick={() => navigate("/workout-tracker")}>
+            Workout tracker     
+        </Button>
     </div>;
 }
 export default TmpPortal;
