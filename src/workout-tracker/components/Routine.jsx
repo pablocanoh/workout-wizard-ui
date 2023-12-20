@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react';
 import {WorkoutContext} from './WorkoutContext';
 import {Button, Card, CardContent, Divider, Grid, TextField, Typography} from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {routineMock} from "../../mock-data/mock-data";
+import {addWorkout} from "../routineService";
 
 const ExerciseComponent = ({ exercise, onWeightChange }) => {
     const initialWeights = Object.fromEntries(
@@ -60,7 +60,14 @@ const RoutineComponent = () => {
 
     const handleSave = () => {
         updateWeight(weights);
-        console.log(weights);
+        addWorkout({ workoutDayNumber: 1, exercises: weights })
+            .then(responseData => {
+                console.log('Routine saved successfully:', responseData);
+                // navigate('/');
+            })
+            .catch(error => {
+                console.error('Error saving routine:', error);
+            });
     };
 
     return (
