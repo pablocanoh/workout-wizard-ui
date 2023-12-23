@@ -35,7 +35,7 @@ const RoutineComponent = () => {
 
     const handleSave = () => {
         updateWeight(weights);
-        addWorkout({ workoutDayNumber: 1, exercises: weights })
+        addWorkout({ workoutDayNumber: workoutDay, exercises: weights })
             .then(responseData => {
                 console.log('Routine saved successfully:', responseData);
                 navigate('/');
