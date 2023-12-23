@@ -1,15 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import {getInsights} from "./routineService";
 
 const MyChart = () => {
-    // Aquí definirías las opciones de tu gráfico
+    const [insights, setInsights] = useState([]);
+
+    React.useEffect(() => {
+        const loadInsights = async () => {
+            const insights = await getInsights();
+            console.log('Insights:', insights);
+            setInsights(insights);
+        };
+
+        loadInsights();
+    }, []);
+
     const options = {
+        xAxis: {
+            categories: insights.map(insight => insight.groupNumber + 1),
+        },
         title: {
             text: 'My chart'
         },
         series: [{
-            data: [1, 2, 3, 4, 5] // Tus datos irían aquí
+            data: insights.map(insight => insight.totalLoad)
         }]
     };
 
