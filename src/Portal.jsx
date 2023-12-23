@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Grid, Paper, Typography, Box, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Grid, Paper, Typography, Box, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import { useNavigate } from "react-router-dom";
+import MyChart from './graphs/MyChart';
 
 const Portal = () => {
     const navigate = useNavigate();
@@ -67,7 +68,7 @@ const Portal = () => {
                         <Typography variant="h6" gutterBottom>
                             Progress Charts (Coming Soon)
                         </Typography>
-                        {/* Aquí irán los gráficos */}
+                        <MyChart />
                     </Paper>
                 </Grid>
             </Grid>
