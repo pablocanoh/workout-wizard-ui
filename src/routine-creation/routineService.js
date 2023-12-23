@@ -47,3 +47,16 @@ export const saveRoutine = async (routine) => {
     }
 };
 
+export const getLatestRoutine = async () => {
+    try {
+        const url = `http://localhost:8081/routine/latest`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('There was an error fetching the routine:', error);
+    }
+};
+
