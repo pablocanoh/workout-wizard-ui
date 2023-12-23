@@ -44,7 +44,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
                 <TextField
                     label="Series"
                     type="number"
-                    value={exercise.series}
+                    value={exercise.sets}
                     onChange={(e) => onExerciseChange('series', e.target.value)}
                     fullWidth
                 />

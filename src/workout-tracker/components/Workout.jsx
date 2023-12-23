@@ -4,6 +4,7 @@ import {Button, Card, CardContent, Divider, Grid, TextField, Typography} from '@
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {routineMock} from "../../mock-data/mock-data";
 import {addWorkout} from "../routineService";
+import {TrainingContext} from "../../routine-creation/components/TrainingContext";
 
 const ExerciseComponent = ({ exercise, onWeightChange }) => {
     const initialWeights = Object.fromEntries(
@@ -52,7 +53,12 @@ const ExerciseComponent = ({ exercise, onWeightChange }) => {
 
 const RoutineComponent = () => {
     const { updateWeight } = useContext(WorkoutContext);
+    const { trainingData } = useContext(TrainingContext);
     const [weights, setWeights] = useState({});
+
+    React.useEffect(() => {
+        console.log('trainingData', trainingData);
+    }, [])
 
     const handleWeightChange = (exerciseId, weight) => {
         setWeights({ ...weights, [exerciseId]: weight });
@@ -72,7 +78,7 @@ const RoutineComponent = () => {
 
     return (
         <Grid container spacing={2} sx={{ p: 3 }}>
-            {routineMock.blocks.map(block => (
+            {trainingData.blocks.map(block => (
                 <Grid item xs={12} key={block.id}>
                     {block.exercises.map(exercise => (
                         <ExerciseComponent

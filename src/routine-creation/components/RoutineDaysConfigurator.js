@@ -9,10 +9,11 @@ import {saveRoutine} from "../routineService";
 const RoutineDaysConfigurator = () => {
     const navigate = useNavigate();
     const { trainingData, updateTrainingData, exercisesSample } = useContext(TrainingContext);
-    const [routine, setRoutine] = useState(trainingData.routineData.blocks);
+    const [routine, setRoutine] = useState(trainingData.routineData);
+    console.log('routine', routine);
 
     const handleExerciseChange = (blockIndex, exerciseIndex, field, value) => {
-        const updatedRoutine = routine.map((block, idx) => {
+        const updatedBlocks = routine.blocks.map((block, idx) => {
             if (idx === blockIndex) {
                 const updatedExercises = block.exercises.map((exercise, exIdx) => {
                     if (exIdx === exerciseIndex) {
@@ -25,14 +26,15 @@ const RoutineDaysConfigurator = () => {
             return block;
         });
 
-        setRoutine(updatedRoutine);
+        setRoutine({ ...routine, blocks: updatedBlocks } );
     };
 
     const handleSave = () => {
-        updateTrainingData({ ...trainingData, routineData: { blocks: routine } });
-        saveRoutine(trainingData.routineData)
+        updateTrainingData(routine);
+        saveRoutine(routine)
             .then(responseData => {
                 console.log('Routine saved successfully:', responseData);
+                updateTrainingData(routine);
                 navigate('/');
             })
             .catch(error => {
@@ -48,26 +50,32 @@ const RoutineDaysConfigurator = () => {
             reps: 10, // un valor predeterminado para las repeticiones
         };
 
-        setRoutine(prevRoutine => prevRoutine.map((block, idx) => {
-            if (idx === blockIndex) {
-                return {
-                    ...block,
-                    exercises: [...block.exercises, newExercise]
-                };
-            }
-            return block;
+        setRoutine(prevRoutine => ({
+            ...prevRoutine,
+            blocks: prevRoutine.blocks.map((block, idx) => {
+                if (idx === blockIndex) {
+                    return {
+                        ...block,
+                        exercises: [...block.exercises, newExercise]
+                    };
+                }
+                return block;
+            })
         }));
     };
 
     const removeExercise = (blockIndex, exerciseIndex) => {
-        setRoutine(prevRoutine => prevRoutine.map((block, idx) => {
-            if (idx === blockIndex) {
-                return {
-                    ...block,
-                    exercises: block.exercises.filter((_, exIdx) => exIdx !== exerciseIndex)
-                };
-            }
-            return block;
+        setRoutine(prevRoutine => ({
+            ...prevRoutine,
+            blocks: prevRoutine.blocks.map((block, idx) => {
+                if (idx === blockIndex) {
+                    return {
+                        ...block,
+                        exercises: block.exercises.filter((_, exIdx) => exIdx !== exerciseIndex)
+                    };
+                }
+                return block;
+            })
         }));
     };
 
@@ -75,7 +83,7 @@ const RoutineDaysConfigurator = () => {
     return (
         <Container>
             <Typography variant="h4">Configura tu Rutina de Entrenamiento</Typography>
-            {routine.map((block, blockIndex) => (
+            {routine.blocks.map((block, blockIndex) => (
                 <div key={blockIndex} className="block-container">
                     <Typography variant="h6" gutterBottom>{`Bloque ${blockIndex + 1}`}</Typography>
                     <div>

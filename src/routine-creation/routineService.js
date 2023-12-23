@@ -1,6 +1,6 @@
 export const fetchRoutine = async (experienceLevel, daysPerWeek) => {
     try {
-        const url = `http://localhost:8080/routine/suggest?experienceLevel=${experienceLevel}&daysPerWeek=${daysPerWeek}`;
+        const url = `http://localhost:8081/routine/suggest?experienceLevel=${experienceLevel}&daysPerWeek=${daysPerWeek}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -14,7 +14,7 @@ export const fetchRoutine = async (experienceLevel, daysPerWeek) => {
 
 export const fetchExercises = async () => {
     try {
-        const url = `http://localhost:8080/routine/exercise`;
+        const url = `http://localhost:8081/routine/exercise`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -28,7 +28,7 @@ export const fetchExercises = async () => {
 
 export const saveRoutine = async (routine) => {
     try {
-        const response = await fetch('http://localhost:8080/routine', {  // Replace with your actual API endpoint
+        const response = await fetch('http://localhost:8081/routine', {  // Replace with your actual API endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
