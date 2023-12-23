@@ -12,10 +12,22 @@ export const addWorkout = async (routine) => {
             throw new Error(`Error: ${response.status}`);
         }
 
-        const responseData = await response.json();
-        return responseData;  // Or handle the response data as needed
+        return await response.json();
     } catch (error) {
         console.error('There was an error adding the workout:', error);
+    }
+};
+
+export const fetchWorkoutDiary = async () => {
+    try {
+        const url = `http://localhost:8080/workout/diary/active`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('There was an error fetching the workoutDiary:', error);
     }
 };
 
