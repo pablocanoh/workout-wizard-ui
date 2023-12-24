@@ -1,7 +1,11 @@
 export const fetchRoutine = async (experienceLevel, daysPerWeek) => {
     try {
-        const url = `http://localhost:8081/routine/suggest?experienceLevel=${experienceLevel}&daysPerWeek=${daysPerWeek}`;
-        const response = await fetch(url);
+        const url = `http://localhost:8084/api/routine/suggest?experienceLevel=${experienceLevel}&daysPerWeek=${daysPerWeek}`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -14,8 +18,12 @@ export const fetchRoutine = async (experienceLevel, daysPerWeek) => {
 
 export const fetchExercises = async () => {
     try {
-        const url = `http://localhost:8081/routine/exercise`;
-        const response = await fetch(url);
+        const url = `http://localhost:8084/api/routine/exercise`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -28,9 +36,10 @@ export const fetchExercises = async () => {
 
 export const saveRoutine = async (routine) => {
     try {
-        const response = await fetch('http://localhost:8081/routine', {  // Replace with your actual API endpoint
+        const response = await fetch('http://localhost:8084/api/routine', {  // Replace with your actual API endpoint
             method: 'POST',
             headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(routine)
@@ -49,8 +58,12 @@ export const saveRoutine = async (routine) => {
 
 export const getLatestRoutine = async () => {
     try {
-        const url = `http://localhost:8081/routine/latest`;
-        const response = await fetch(url);
+        const url = `http://localhost:8084/api/routine/latest`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

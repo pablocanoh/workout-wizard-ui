@@ -6,8 +6,9 @@ export const TrainingContext = createContext();
 export const TrainingProvider = ({ children }) => {
     // Initialize state from localStorage
     const [exercisesSample, setExerciseSample] = useState(() => {
-        const savedExercisesSample = localStorage.getItem('exercisesSample');
-        return savedExercisesSample ? JSON.parse(savedExercisesSample) : {};
+        // const savedExercisesSample = localStorage.getItem('exercisesSample');
+        // return savedExercisesSample ? JSON.parse(savedExercisesSample) : {};
+        return {};
     });
     const [trainingData, setTrainingData] = useState(() => {
         const savedTrainingData = localStorage.getItem('trainingData');
