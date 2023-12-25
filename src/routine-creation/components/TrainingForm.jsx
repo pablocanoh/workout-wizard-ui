@@ -5,6 +5,7 @@ import {fetchRoutine} from "../routineService";
 import { ExperienceLevel } from "../api-type";
 
 const TrainingForm = ({ onSubmit }) => {
+    const [disabled, setDisabled] = useState(true);
     const [trainingDays, setTrainingDays] = useState('');
     const [experienceLevel, setExperienceLevel] = useState('');
     const { updateTrainingData } = useContext(TrainingContext);
@@ -16,6 +17,14 @@ const TrainingForm = ({ onSubmit }) => {
         updateTrainingData({trainingDays, experienceLevel, routineData});
         onSubmit();
     };
+
+    React.useEffect(() => {
+        if (trainingDays && experienceLevel) {
+            setDisabled(false);
+        } else {
+            setDisabled(true);
+        }
+    }, [trainingDays, experienceLevel])
 
     return (
         <Container maxWidth="sm">
@@ -53,7 +62,7 @@ const TrainingForm = ({ onSubmit }) => {
                         </MenuItem>
                     ))}
                 </TextField>
-                <Button type="submit" variant="contained" color="primary" fullWidth>
+                <Button disabled={disabled} type="submit" variant="contained" color="primary" fullWidth>
                     Enviar
                 </Button>
             </form>
