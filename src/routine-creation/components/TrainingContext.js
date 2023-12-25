@@ -14,7 +14,7 @@ export const TrainingProvider = ({ children }) => {
     });
     const [trainingData, setTrainingData] = useState(() => {
         const savedTrainingData = localStorage.getItem('trainingData');
-        return savedTrainingData ? JSON.parse(savedTrainingData) : { routineData: null };
+        return savedTrainingData ? JSON.parse(savedTrainingData) : null;
     });
 
     // Fetch the latest routine on mount and update state
@@ -26,7 +26,7 @@ export const TrainingProvider = ({ children }) => {
             }
         };
 
-        if (location.pathname !== '/auth') {
+        if (location.pathname !== '/auth' && localStorage.getItem('token')) {
             fetchLatestRoutine();
         }
 

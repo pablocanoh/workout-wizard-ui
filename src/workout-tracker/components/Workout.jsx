@@ -26,7 +26,11 @@ const RoutineComponent = () => {
 
         };
 
-        loadDiary();
+        if (!trainingData) {
+            navigate('/configure-routine');
+        } else {
+            loadDiary();
+        }
     }, [])
 
     const handleWeightChange = (exerciseId, weight) => {
@@ -45,7 +49,7 @@ const RoutineComponent = () => {
             });
     };
 
-    return (
+    return (trainingData && (
         <Grid container spacing={2} sx={{ p: 3 }}>
             <Grid item xs={12}>
                 {trainingData.blocks[workoutDay].exercises.map(exercise => (
@@ -65,7 +69,7 @@ const RoutineComponent = () => {
                 Save Routine
             </Button>
         </Grid>
-    );
+    ));
 };
 
 export default RoutineComponent;

@@ -9,6 +9,11 @@ const Auth = () => {
         password: ''
     });
 
+    React.useEffect(() => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('trainingData')
+    }, []);
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setCredentials({ ...credentials, [name]: value });

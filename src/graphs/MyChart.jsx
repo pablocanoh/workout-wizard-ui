@@ -9,7 +9,6 @@ const MyChart = () => {
     React.useEffect(() => {
         const loadInsights = async () => {
             const insights = await getInsights();
-            console.log('Insights:', insights);
             setInsights(insights);
         };
 
@@ -21,7 +20,7 @@ const MyChart = () => {
             categories: insights.map(insight => insight.groupNumber + 1),
         },
         title: {
-            text: 'My chart'
+            text: 'Routine progress'
         },
         series: [{
             data: insights.map(insight => insight.totalLoad)

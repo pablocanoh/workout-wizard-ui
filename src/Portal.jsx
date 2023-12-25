@@ -1,16 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Grid, Paper, Typography, Box, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import { useNavigate } from "react-router-dom";
 import MyChart from './graphs/MyChart';
+import {TrainingContext} from "./routine-creation/components/TrainingContext";
 
 const Portal = () => {
+    const { trainingData } = useContext(TrainingContext);
     const navigate = useNavigate();
 
     // Drawer state
     const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+    React.useEffect(() => {
+
+        if (!trainingData) {
+            navigate('/configure-routine');
+        }
+    }, []);
 
     const handleDrawerToggle = () => {
         setDrawerOpen(!drawerOpen);
