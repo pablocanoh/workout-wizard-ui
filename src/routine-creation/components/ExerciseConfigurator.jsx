@@ -2,9 +2,17 @@ import React, { useContext } from 'react';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
 import { TrainingContext } from "./TrainingContext";
 
-const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
+const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove, allowRemove }) => {
     const { exercisesSample } = useContext(TrainingContext);
     const exerciseTypes = Object.keys(exercisesSample);
+
+    const onSetChange = e => {
+        if (e.target.value <= 1) {
+            e.target.value = 1;
+        }
+
+        onExerciseChange('sets', e.target.value);
+    };
 
     return (
         <Grid container spacing={2} alignItems="center">
@@ -44,14 +52,14 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
                     label="Series"
                     type="number"
                     value={exercise.sets}
-                    onChange={(e) => onExerciseChange('sets', e.target.value)}
+                    onChange={(e) => onSetChange(e)}
                     fullWidth
                 />
             </Grid>
             <Grid item xs={6} sm={4}>
-                <Button variant="outlined" color="secondary" onClick={onRemove}>
+                { allowRemove && <Button variant="outlined" color="secondary" onClick={onRemove}>
                     Eliminar Ejercicio
-                </Button>
+                </Button> }
             </Grid>
         </Grid>
     );

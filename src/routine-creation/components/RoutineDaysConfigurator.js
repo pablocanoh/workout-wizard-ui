@@ -44,10 +44,9 @@ const RoutineDaysConfigurator = () => {
 
     const addExercise = (blockIndex) => {
         const newExercise = {
-            type: 'CHEST', // o el primer tipo en tu lista de mockAvailableExercises
-            name: exercisesSample['CHEST'][0].name, // Example name, you might want to set this dynamically
-            series: 3, // un valor predeterminado para las series
-            reps: 10, // un valor predeterminado para las repeticiones
+            ...exercisesSample['CHEST'][0],
+            sets: 3,
+            reps: 10,
         };
 
         setRoutine(prevRoutine => ({
@@ -93,6 +92,7 @@ const RoutineDaysConfigurator = () => {
                                     exercise={exercise}
                                     onExerciseChange={(field, value) => handleExerciseChange(blockIndex, exerciseIndex, field, value)}
                                     onRemove={() => removeExercise(blockIndex, exerciseIndex)}
+                                    allowRemove={block.exercises.length > 1}
                                 />
                             </div>
                         ))}
