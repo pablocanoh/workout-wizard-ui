@@ -1,6 +1,6 @@
 export const getInsights = async () => {
     try {
-        const url = `http://localhost:8084/api/insights`;
+        const url = `${process.env.REACT_APP_GATEWAY_API}/api/insights`;
         const response = await fetch(url, {
             method: 'GET',
             headers: {

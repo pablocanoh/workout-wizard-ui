@@ -1,6 +1,6 @@
 export const fetchRoutine = async (experienceLevel, daysPerWeek) => {
     try {
-        const url = `http://localhost:8084/api/routine/suggest?experienceLevel=${experienceLevel}&daysPerWeek=${daysPerWeek}`;
+        const url = `${process.env.REACT_APP_GATEWAY_API}/api/routine/suggest?experienceLevel=${experienceLevel}&daysPerWeek=${daysPerWeek}`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -18,7 +18,7 @@ export const fetchRoutine = async (experienceLevel, daysPerWeek) => {
 
 export const fetchExercises = async () => {
     try {
-        const url = `http://localhost:8084/api/routine/exercise`;
+        const url = `${process.env.REACT_APP_GATEWAY_API}/api/routine/exercise`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -36,7 +36,7 @@ export const fetchExercises = async () => {
 
 export const saveRoutine = async (routine) => {
     try {
-        const response = await fetch('http://localhost:8084/api/routine', {  // Replace with your actual API endpoint
+        const response = await fetch(`${process.env.REACT_APP_GATEWAY_API}/api/routine`, {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -58,7 +58,7 @@ export const saveRoutine = async (routine) => {
 
 export const getLatestRoutine = async () => {
     try {
-        const url = `http://localhost:8084/api/routine/latest`;
+        const url = `${process.env.REACT_APP_GATEWAY_API}/api/routine/latest`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),

@@ -1,5 +1,5 @@
 export const registerUser = async (credentials) => {
-    const response = await fetch('http://localhost:8082/users/register', {  // Replace with your actual API endpoint
+    const response = await fetch(`${process.env.REACT_APP_USER_API}/users/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ export const registerUser = async (credentials) => {
 };
 
 export const loginUser = async (credentials) => {
-    const response = await fetch('http://localhost:8082/users/login', {  // Replace with your actual API endpoint
+    const response = await fetch(`${process.env.REACT_APP_USER_API}/users/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

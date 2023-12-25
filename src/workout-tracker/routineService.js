@@ -1,6 +1,6 @@
 export const addWorkout = async (routine) => {
     try {
-        const response = await fetch('http://localhost:8084/api/workout', {  // Replace with your actual API endpoint
+        const response = await fetch(`${process.env.REACT_APP_GATEWAY_API}/api/workout`, {  // Replace with your actual API endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export const addWorkout = async (routine) => {
 
 export const fetchWorkoutDiary = async () => {
     try {
-        const url = `http://localhost:8084/api/workout/diary/active`;
+        const url = `${process.env.REACT_APP_GATEWAY_API}/api/workout/diary/active`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
