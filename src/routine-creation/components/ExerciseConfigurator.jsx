@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
+import React, { useContext } from 'react';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
-import {fetchExercises} from "../routineService";
-import {TrainingContext} from "./TrainingContext";
+import { TrainingContext } from "./TrainingContext";
 
 const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
     const { exercisesSample } = useContext(TrainingContext);
@@ -31,7 +30,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
                     value={exercise.name}
                     onChange={(e) => onExerciseChange('name', e.target.value)}
                     fullWidth
-                    disabled={!exercise.type}  // Deshabilita si no se ha seleccionado un tipo
+                    disabled={!exercise.type}  // Disable if no type has been selected
                 >
                     {exercise.type && exercisesSample[exercise.type]?.map((ex, index) => (
                         <MenuItem key={index} value={ex.name}>
@@ -45,25 +44,15 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove }) => {
                     label="Series"
                     type="number"
                     value={exercise.sets}
-                    onChange={(e) => onExerciseChange('series', e.target.value)}
+                    onChange={(e) => onExerciseChange('sets', e.target.value)}
                     fullWidth
                 />
             </Grid>
             <Grid item xs={6} sm={4}>
-                <TextField
-                    label="Repeticiones"
-                    type="number"
-                    value={exercise.reps}
-                    onChange={(e) => onExerciseChange('reps', e.target.value)}
-                    fullWidth
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <Button onClick={onRemove} color="secondary">
+                <Button variant="outlined" color="secondary" onClick={onRemove}>
                     Eliminar Ejercicio
                 </Button>
             </Grid>
-
         </Grid>
     );
 };
