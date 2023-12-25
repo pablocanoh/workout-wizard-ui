@@ -3,7 +3,7 @@ import { Button, TextField, Container, Typography, Box, Paper, FormGroup, FormCo
 import {loginUser, registerUser} from "./service";
 
 const Auth = () => {
-    const [isLogin, setIsLogin] = useState(true); // true para login, false para registro
+    const [isLogin, setIsLogin] = useState(true); // true para login, false para registry
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
@@ -26,6 +26,15 @@ const Auth = () => {
             if (isLogin) {
                 localStorage.setItem('token', response);
                 window.location.href = '/';
+            } else {
+                setIsLogin(true);
+                alert('Usuario registrado correctamente. Por favor, inicia sesión.')
+            }
+        }).catch(() => {
+            if (!isLogin) {
+                alert('Usuario ya registrado. Por favor, inicia sesión.')
+            } else {
+                alert('Usuario o contraseña incorrectos.')
             }
         });
     };
