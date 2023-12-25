@@ -9,6 +9,9 @@ export const ExerciseComponent = ({ exercise, onWeightChange }) => {
     const [localWeights, setLocalWeights] = useState(initialWeights);
 
     const handleWeightChange = (setNumber, weight) => {
+        if (weight < 0) {
+            weight = 0;
+        }
         const updatedWeights = { ...localWeights, [setNumber]: weight };
         setLocalWeights(updatedWeights);
         onWeightChange(exercise.id, updatedWeights);
@@ -29,7 +32,7 @@ export const ExerciseComponent = ({ exercise, onWeightChange }) => {
                     {Object.entries(localWeights).map(([setNumber, weight]) => (
                         <Grid item xs={6} sm={4} md={3} key={setNumber}>
                             <TextField
-                                label={`Set ${setNumber + 1}`}
+                                label={`Set ${setNumber }`}
                                 type="number"
                                 variant="outlined"
                                 fullWidth
