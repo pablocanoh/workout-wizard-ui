@@ -1,9 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getLatestRoutine } from "../routineService";
+import { useLocation } from "react-router-dom";
 
 export const TrainingContext = createContext();
 
 export const TrainingProvider = ({ children }) => {
+    const location = useLocation();
     // Initialize state from localStorage
     const [exercisesSample, setExerciseSample] = useState(() => {
         // const savedExercisesSample = localStorage.getItem('exercisesSample');
@@ -24,7 +26,10 @@ export const TrainingProvider = ({ children }) => {
             }
         };
 
-        fetchLatestRoutine();
+        if (location.pathname !== '/auth') {
+            fetchLatestRoutine();
+        }
+
     }, []);
 
     // Update localStorage when state changes
