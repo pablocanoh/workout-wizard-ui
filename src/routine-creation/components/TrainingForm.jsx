@@ -12,7 +12,6 @@ const TrainingForm = ({ onSubmit }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('aaa')
         const routineData = await fetchRoutine(experienceLevel, trainingDays);
         updateTrainingData({trainingDays, experienceLevel, routineData});
         onSubmit();

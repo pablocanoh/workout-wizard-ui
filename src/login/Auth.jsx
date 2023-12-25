@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Button, TextField, Container, Typography, Box, Paper, FormGroup, FormControlLabel, Switch } from '@mui/material';
 import {loginUser, registerUser} from "./service";
+import {TrainingContext} from "../routine-creation/components/TrainingContext";
 
 const Auth = () => {
+    const { updateTrainingData } = useContext(TrainingContext);
     const [isLogin, setIsLogin] = useState(true); // true para login, false para registry
     const [credentials, setCredentials] = useState({
         username: '',
@@ -10,6 +12,7 @@ const Auth = () => {
     });
 
     React.useEffect(() => {
+        updateTrainingData(null);
         localStorage.removeItem('token')
         localStorage.removeItem('trainingData')
     }, []);
