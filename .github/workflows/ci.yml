@@ -11,9 +11,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t pcanohuoc/wizard-ui:latest \
-            --build-arg JAR_FILE=build/libs/*.jar \
-            .
+          docker build -t pcanohuoc/wizard-ui:latest .
 
       - name: Publish Docker image
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
