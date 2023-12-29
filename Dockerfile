@@ -14,7 +14,7 @@ RUN npm install
 COPY . ./
 
 # Paso 6: Construye tu aplicación React
-RUN npm run build:staging
+RUN npm run build
 
 # Paso 7: Usa una imagen ligera para el servidor
 FROM nginx:alpine
