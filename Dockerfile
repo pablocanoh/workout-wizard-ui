@@ -30,3 +30,4 @@ EXPOSE 80
 
 # Paso 11: Inicia el servidor de Nginx
 CMD ["nginx", "-g", "daemon off;"]
+
