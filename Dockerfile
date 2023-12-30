@@ -13,8 +13,10 @@ RUN npm install
 # Paso 5: Copia el resto de tus archivos de proyecto
 COPY . ./
 
+ENV ENVIROMENT=staging
+
 # Paso 6: Construye tu aplicación React
-RUN npm run build:staging
+RUN npm run build:${ENVIROMENT}
 
 # Paso 7: Usa una imagen ligera para el servidor
 FROM nginx:alpine
