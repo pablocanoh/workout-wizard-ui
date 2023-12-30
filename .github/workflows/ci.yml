@@ -11,7 +11,7 @@ jobs:
 
       - name: Build Docker image in Production environment
         run: |
-          docker build --build-arg ENVIRONMENT=production -t pcanohuoc/wizard-ui:latest .
+          docker build --no-cache --build-arg ENVIRONMENT=production -t pcanohuoc/wizard-ui:latest .
 
       - name: Publish Docker image to Docker Hub for Production environment
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -21,7 +21,7 @@ jobs:
 
       - name: Build Docker image in Staging environment
         run: |
-          docker build --build-arg ENVIRONMENT=staging -t pcanohuoc/wizard-ui:staging .
+          docker build --no-cache --build-arg ENVIRONMENT=staging -t pcanohuoc/wizard-ui:staging .
 
       - name: Publish Docker image to Docker Hub for Staging environment
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
