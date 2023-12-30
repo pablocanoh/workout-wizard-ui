@@ -9,22 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build Docker image in Production environment
+      - name: Build Docker image
         run: |
-          docker build --no-cache --build-arg ENVIRONMENT=production -t pcanohuoc/wizard-ui:latest .
+          docker build -t pcanohuoc/wizard-ui:latest \        
+            .
+          docker build -t pcanohuoc/wizard-ui:latest .
 
-      - name: Publish Docker image to Docker Hub for Production environment
+      - name: Publish Docker image
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push pcanohuoc/wizard-ui:latest                      
+          docker push pcanohuoc/wizard-ui:latest
 
-      - name: Build Docker image in Staging environment
-        run: |
-          docker build --no-cache --build-arg ENVIRONMENT=staging -t pcanohuoc/wizard-ui:staging .
-
-      - name: Publish Docker image to Docker Hub for Staging environment
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push pcanohuoc/wizard-ui:staging
