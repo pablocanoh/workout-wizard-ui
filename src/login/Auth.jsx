@@ -44,8 +44,7 @@ const Auth = () => {
                 } else if (response === 'USERNAME_ALREADY_EXISTS') {
                     alert('User already registered. Please log in.');
                 } else if (response === 'PASSWORD_INCORRECT_FORMAT') {
-                    alert('Your password should be 8-20 characters long, include at least one uppercase letter,' +
-                        ' one lowercase letter, one digit, and one special character (@#$%^&+=). It should not contain any whitespace.');
+                    alert(passwordHelpText);
                 }
             }
         }).catch(e => {
