@@ -1,11 +1,14 @@
-import React, {useContext} from 'react';
-import { Grid, Paper, Typography, Box, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import React, { useContext } from 'react';
+import {
+    Grid, Paper, Typography, Box, AppBar, Toolbar, IconButton, Drawer,
+    List, ListItem, ListItemIcon, ListItemText, Alert
+} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import { useNavigate } from "react-router-dom";
 import MyChart from './graphs/MyChart';
-import {TrainingContext} from "./routine-creation/components/TrainingContext";
+import { TrainingContext } from "./routine-creation/components/TrainingContext";
 
 const Portal = () => {
     const { trainingData } = useContext(TrainingContext);
@@ -22,10 +25,11 @@ const Portal = () => {
     }, []);
 
     const handleDrawerToggle = () => {
+        localStorage.setItem('user-knows-how-to-navigate', 'true');
         setDrawerOpen(!drawerOpen);
     };
 
-    // Navigation items for the drawer
+    // Elementos del Drawer
     const drawerItems = (
         <div>
             <List>
@@ -70,12 +74,14 @@ const Portal = () => {
             >
                 {drawerItems}
             </Drawer>
+            {!localStorage.getItem('user-knows-how-to-navigate') && <Alert severity="info">
+                Welcome to the Dashboard! Click on the left menu to start adding or tracking your progress.
+            </Alert>}
             <Grid container spacing={3} style={{ padding: '20px' }}>
-                {/* Espacio reservado para futuros gráficos */}
                 <Grid item xs={12}>
                     <Paper style={{ padding: '20px', minHeight: '300px' }}>
                         <Typography variant="h6" gutterBottom>
-                            Progress Charts (Coming Soon)
+                            Progress Charts
                         </Typography>
                         <MyChart />
                     </Paper>

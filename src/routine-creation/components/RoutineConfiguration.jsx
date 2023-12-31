@@ -31,7 +31,7 @@ const RoutineConfiguration = () => {
             {step > 1 && (
                 <>
                     <Button onClick={handlePreviousStep} variant="contained" color="secondary">
-                        Atrás
+                        go back
                     </Button>
                 </>)}
             {step === 1 && <TrainingForm onSubmit={onChange}/>}

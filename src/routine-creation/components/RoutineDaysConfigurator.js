@@ -81,10 +81,10 @@ const RoutineDaysConfigurator = () => {
 
     return (
         <Container>
-            <Typography variant="h4">Configura tu Rutina de Entrenamiento</Typography>
+            <Typography variant="h4">Configure Your Training Routine</Typography>
             {routine.blocks.map((block, blockIndex) => (
                 <div key={blockIndex} className="block-container">
-                    <Typography variant="h6" gutterBottom>{`Bloque ${blockIndex + 1}`}</Typography>
+                    <Typography variant="h6" gutterBottom>{`Block ${blockIndex + 1}`}</Typography>
                     <div>
                         {block.exercises.map((exercise, exerciseIndex) => (
                             <div key={exerciseIndex} className="exercise-container">
@@ -98,12 +98,12 @@ const RoutineDaysConfigurator = () => {
                         ))}
                     </div>
                     <Button onClick={() => addExercise(blockIndex)} color="primary">
-                        Añadir Ejercicio
+                        Add Exercise
                     </Button>
                 </div>
             ))}
             <Button onClick={handleSave} variant="contained" color="primary" style={{ marginTop: '20px' }}>
-                Guardar Rutina
+                Save Routine
             </Button>
         </Container>
     );

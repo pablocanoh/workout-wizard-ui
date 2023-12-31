@@ -1,11 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, TextField, Container, Typography, Box, Paper, FormGroup, FormControlLabel, Switch } from '@mui/material';
-import {loginUser, registerUser} from "./service";
-import {TrainingContext} from "../routine-creation/components/TrainingContext";
+import { loginUser, registerUser } from "./service";
+import { TrainingContext } from "../routine-creation/components/TrainingContext";
 
 const Auth = () => {
     const { updateTrainingData } = useContext(TrainingContext);
-    const [isLogin, setIsLogin] = useState(true); // true para login, false para registry
+    const [isLogin, setIsLogin] = useState(true);
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
@@ -31,13 +31,13 @@ const Auth = () => {
                 window.location.href = '/';
             } else {
                 setIsLogin(true);
-                alert('Usuario registrado correctamente. Por favor, inicia sesión.')
+                alert('User successfully registered. Please log in.')
             }
         }).catch(() => {
             if (!isLogin) {
-                alert('Usuario ya registrado. Por favor, inicia sesión.')
+                alert('User already registered. Please log in.')
             } else {
-                alert('Usuario o contraseña incorrectos.')
+                alert('Incorrect username or password.')
             }
         });
     };
@@ -46,12 +46,12 @@ const Auth = () => {
         <Container component="main" maxWidth="xs">
             <Paper elevation={6} sx={{ mt: 8, p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography component="h1" variant="h5">
-                    {isLogin ? 'Inicio de sesión' : 'Registro'}
+                    {isLogin ? 'Log in' : 'Register'}
                 </Typography>
                 <FormGroup>
                     <FormControlLabel
                         control={<Switch checked={isLogin} onChange={() => setIsLogin(!isLogin)} />}
-                        label={isLogin ? '¿No tienes una cuenta? Regístrate' : '¿Ya tienes una cuenta? Inicia sesión'}
+                        label={isLogin ? 'Don’t have an account? Register' : 'Already have an account? Log in'}
                     />
                 </FormGroup>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -83,7 +83,7 @@ const Auth = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        {isLogin ? 'Iniciar sesión' : 'Registrar'}
+                        {isLogin ? 'Log in' : 'Register'}
                     </Button>
                 </Box>
             </Paper>

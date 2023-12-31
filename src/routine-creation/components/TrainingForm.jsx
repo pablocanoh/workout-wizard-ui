@@ -28,33 +28,33 @@ const TrainingForm = ({ onSubmit }) => {
     return (
         <Container maxWidth="sm">
             <Typography variant="h4" component="h1" gutterBottom>
-                Formulario de Rutina de Gimnasio
+                Gym Routine Form
             </Typography>
             <form onSubmit={handleSubmit}>
                 <TextField
                     select
-                    label="¿Cuántos días a la semana puedes entrenar?"
+                    label="How many days per week can you train?"
                     value={trainingDays}
                     onChange={e => setTrainingDays(e.target.value)}
                     fullWidth
                     margin="normal"
                 >
-                    {/* Opciones de días */}
+                    {/* Options for days */}
                     {[1, 2, 3, 4, 5, 6, 7].map((day) => (
                         <MenuItem key={day} value={day}>
-                            {day} {day === 1 ? 'día' : 'días'}
+                            {day} {day === 1 ? 'day' : 'days'}
                         </MenuItem>
                     ))}
                 </TextField>
                 <TextField
                     select
-                    label="Nivel de experiencia en el gimnasio"
+                    label="Gym Experience Level"
                     value={experienceLevel}
                     onChange={e => setExperienceLevel(e.target.value)}
                     fullWidth
                     margin="normal"
                 >
-                    {/* Opciones de nivel de experiencia */}
+                    {/* Options for experience level */}
                     {Object.entries(ExperienceLevel).map(([key, value]) => (
                         <MenuItem key={key} value={key}>
                             {value}
@@ -62,7 +62,7 @@ const TrainingForm = ({ onSubmit }) => {
                     ))}
                 </TextField>
                 <Button disabled={disabled} type="submit" variant="contained" color="primary" fullWidth>
-                    Enviar
+                    Submit
                 </Button>
             </form>
         </Container>

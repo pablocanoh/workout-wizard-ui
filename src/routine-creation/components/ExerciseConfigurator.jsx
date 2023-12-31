@@ -19,7 +19,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove, allowRemov
             <Grid item xs={12} sm={4}>
                 <TextField
                     select
-                    label="Tipo"
+                    label="Type"
                     value={exercise.type}
                     onChange={(e) => onExerciseChange('type', e.target.value)}
                     fullWidth
@@ -34,7 +34,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove, allowRemov
             <Grid item xs={12} sm={4}>
                 <TextField
                     select
-                    label="Ejercicio"
+                    label="Exercise"
                     value={exercise.name}
                     onChange={(e) => onExerciseChange('name', e.target.value)}
                     fullWidth
@@ -49,7 +49,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove, allowRemov
             </Grid>
             <Grid item xs={6} sm={4}>
                 <TextField
-                    label="Series"
+                    label="Sets"
                     type="number"
                     value={exercise.sets}
                     onChange={(e) => onSetChange(e)}
@@ -58,7 +58,7 @@ const ExerciseConfigurator = ({ exercise, onExerciseChange, onRemove, allowRemov
             </Grid>
             <Grid item xs={6} sm={4}>
                 { allowRemove && <Button variant="outlined" color="secondary" onClick={onRemove}>
-                    Eliminar Ejercicio
+                    Remove Exercise
                 </Button> }
             </Grid>
         </Grid>
