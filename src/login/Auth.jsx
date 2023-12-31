@@ -22,18 +22,33 @@ const Auth = () => {
         setCredentials({ ...credentials, [name]: value });
     };
 
+    const passwordHelpText = "Your password must be at least 5 characters long and include both letters and numbers.Your password must be at least 5 characters long and include both letters and numbers.";
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const endpoint = isLogin ? loginUser : registerUser;
         return await endpoint(credentials).then((response) => {
             if (isLogin) {
-                localStorage.setItem('token', response);
-                window.location.href = '/';
+                if (response.state === 'INVALID_CREDENTIALS') {
+                    alert('Incorrect username or password.')
+                } else if (response.state === 'LOGIN_BLOCKED_FOR_MANY_ATTEMPTS') {
+                    alert('Login blocked for many attempts. Please try again later.')
+                } else if (response.state === 'SUCCESS') {
+                    localStorage.setItem('token', response.token);
+                    window.location.href = '/';
+                }
             } else {
-                setIsLogin(true);
-                alert('User successfully registered. Please log in.')
+                if (response === 'SUCCESS') {
+                    setIsLogin(true);
+                    alert('User successfully registered. Please log in.')
+                } else if (response === 'USERNAME_ALREADY_EXISTS') {
+                    alert('User already registered. Please log in.');
+                } else if (response === 'PASSWORD_INCORRECT_FORMAT') {
+                    alert('Your password should be 8-20 characters long, include at least one uppercase letter,' +
+                        ' one lowercase letter, one digit, and one special character (@#$%^&+=). It should not contain any whitespace.');
+                }
             }
-        }).catch(() => {
+        }).catch(e => {
             if (!isLogin) {
                 alert('User already registered. Please log in.')
             } else {
@@ -76,6 +91,7 @@ const Auth = () => {
                         autoComplete="current-password"
                         value={credentials.password}
                         onChange={handleInputChange}
+                        helperText={!isLogin ? passwordHelpText : ''}
                     />
                     <Button
                         type="submit"

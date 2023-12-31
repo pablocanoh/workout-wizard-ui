@@ -27,6 +27,6 @@ export const loginUser = async (credentials) => {
         throw new Error(`Error: ${response.status}`);
     }
 
-    return await response.text();  // Or handle the response data as needed
+    return await response.json()  // Or handle the response data as needed
 };
 
