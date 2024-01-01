@@ -18,13 +18,24 @@ const MyChart = () => {
     const options = {
         xAxis: {
             categories: insights.map(insight => insight.groupNumber + 1),
+            title: {
+                text: 'Routine period'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Total load in Kg'
+            }
         },
         title: {
             text: 'Routine progress'
         },
         series: [{
-            data: insights.map(insight => insight.totalLoad)
-        }]
+            data: insights.map(insight => insight.totalLoad),
+        }],
+        legend: {
+            enabled: false
+        },
     };
 
     return (
