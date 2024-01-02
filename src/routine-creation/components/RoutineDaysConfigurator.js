@@ -5,6 +5,7 @@ import { Container, Typography, Button } from '@mui/material';
 import ExerciseConfigurator from './ExerciseConfigurator';
 import './index.css';
 import {saveRoutine} from "../routineService";
+import {v4 as uuidv4} from 'uuid';
 
 const RoutineDaysConfigurator = () => {
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ const RoutineDaysConfigurator = () => {
             ...exercisesSample['CHEST'][0],
             sets: 3,
             reps: 10,
+            id: uuidv4()
         };
 
         setRoutine(prevRoutine => ({
